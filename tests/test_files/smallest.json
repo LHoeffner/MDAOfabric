@@ -1,0 +1,12 @@
+{
+    "surface_opt"       : "something",
+    "example_block"     : {
+        "comment"       : "some comment here",
+        "solver_type"   : "some_solver",
+        "start_time"    : 0.0,
+        "deeper_level"  : {
+            "some_lowerlevel_key"   : 43,
+            "comment"               : "also on lower level"
+        }
+    }
+}
