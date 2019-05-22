@@ -45,27 +45,37 @@ class Settings(dict):
 
 
 # public functions
-    def ValidateAndAssignDefaults(self, defaults, reading_class = None):
+    def ValidateAndAssignDefaults(self, defaults, branch_key = None, recursive = True):
+        """Compares this settings to the provided defaults
+
+        :param defaults: default settings to validate against (of Settings type)
+        :param branch_key: optional string naming the caller class for more useful exceptions
+        :param recursive: boolean causing the validation to continue through all levels of the settings-tree
+        :return: None
+        """
         for key, val in self.items():
 
             # check if the current entry also exists in the defaults
             if key not in defaults.keys():
                 err_msg = 'Unexpected key "' + key + '" is provided in the settings!'
                 # adds name of invoking class to output if provided
-                if reading_class:
-                    err_msg += ' of class' + reading_class
+                if branch_key:
+                    err_msg += ' (in settings branch "' + branch_key + '")'
                 err_msg += ' (NOT in the defaults)'
                 raise Exception(err_msg)
 
             # check if the type is the same in the defaults
-            if not isinstance(self[key], type(defaults[key])):
+            if not isinstance(val, type(defaults[key])):
                 err_msg = 'Unexpected type used by key "' + key + '" in the settings!'
                 # adds name of invoking class to output if provided
-                if reading_class:
-                    err_msg += ' of class' + reading_class
-                err_msg += ' (it is "' + str(type(self[key]).__name__) + \
+                if branch_key:
+                    err_msg += ' (in settings branch "' + branch_key + '")'
+                err_msg += ' (it is "' + str(type(val).__name__) + \
                            '" while the defaults use "' + str(type(defaults[key]).__name__) + '")'
                 raise Exception(err_msg)
+
+            if recursive and isinstance(val, Settings):
+                val.ValidateAndAssignDefaults(defaults[key], key, True)
 
         # loop the defaults and add the missing entries
         for key_d, val_d in defaults.items():
