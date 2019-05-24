@@ -3,6 +3,10 @@ from .solver_base import SolverBase
 
 
 class EmptySolver(SolverBase):
+    """An empty standalone-solver for testing purposes
+
+    Raises exceptions when one of the methods is called, except for GetDefaultSettings()
+    """
 
     def GetDefaultSettings(self):
         default_settings = ('''{

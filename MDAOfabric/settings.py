@@ -2,7 +2,7 @@ import json
 
 
 class Settings(dict):
-    """MDAOfabric's container for configuration
+    """MDAOfabric's container for configuration and settings
 
     Can be initialised from a dictionary a string or file containing a json-style option set.
     It inherits from dictionary and can be read and sliced as such (using settings['key']).
