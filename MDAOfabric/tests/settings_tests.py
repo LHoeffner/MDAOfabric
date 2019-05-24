@@ -2,7 +2,7 @@ import unittest
 import MDAOfabric
 
 
-class TestSettingsClass(unittest.TestCase):
+class SettingsTests(unittest.TestCase):
 
     def setUp(self):
         self.small_reference_dict = {'surface_opt': 'something',
