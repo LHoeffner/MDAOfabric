@@ -7,6 +7,7 @@ class SolverBase(ABC):
     """
     def __init__(self, settings):
         self.settings = settings
+        self.settings.ValidateAndAssignDefaults(self.GetDefaultSettings())
 
     @abstractmethod
     def GetDefaultSettings(self):
@@ -50,7 +51,6 @@ class SolverBase(ABC):
         This is only intended to be run by the user
         :return: None
         """
-        self.settings.ValidateAndAssignDefaults(self.GetDefaultSettings())
         self.Initialize()
         self.Run()
         self.Finalize()
