@@ -2,4 +2,5 @@
 *.pyc
 
 # Mac Desktop Service
+**/.DS_Store
 .DS_Store
