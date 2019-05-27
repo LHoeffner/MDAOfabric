@@ -24,10 +24,10 @@ class EmptySolver(SolverBase):
         return MDAOfabric.Settings.FromString(default_settings)
 
     def Initialize(self):
-        raise Exception('Initialize() of the EmptySolver called.')
+        MDAOfabric.log.warning('Initialize() of the EmptySolver called.')
 
     def Run(self):
-        raise Exception('Run() of the EmptySolver called.')
+        MDAOfabric.log.warning('Run() of the EmptySolver called.')
 
     def Finalize(self):
-        raise Exception('Finalize() of the EmptySolver called.')
+        MDAOfabric.log.warning('Finalize() of the EmptySolver called.')

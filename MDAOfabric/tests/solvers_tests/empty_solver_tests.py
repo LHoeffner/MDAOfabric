@@ -1,4 +1,6 @@
 import unittest
+import logging
+
 import MDAOfabric
 
 
@@ -21,21 +23,24 @@ class EmptySolverTests(unittest.TestCase):
         self.solver = MDAOfabric.EmptySolver(self.settings)
 
     def test_run_full_sequence(self):
-        with self.assertRaises(Exception) as excep:
+        with self.assertLogs(MDAOfabric.log, 'WARNING') as msg:
             self.solver.RunFullSequence()
-        self.assertEqual(str(excep.exception), 'Initialize() of the EmptySolver called.')
+            self.assertEqual('WARNING:MDAOlogger:Initialize() of the EmptySolver called.', msg.output[0])
+            self.assertEqual('WARNING:MDAOlogger:Run() of the EmptySolver called.', msg.output[1])
+            self.assertEqual('WARNING:MDAOlogger:Finalize() of the EmptySolver called.', msg.output[2])
+
 
     def test_initialize(self):
-        with self.assertRaises(Exception) as excep:
+        with self.assertLogs(MDAOfabric.log, 'WARNING') as msg:
             self.solver.Initialize()
-        self.assertEqual(str(excep.exception), 'Initialize() of the EmptySolver called.')
+            self.assertEqual('WARNING:MDAOlogger:Initialize() of the EmptySolver called.', msg.output[0])
 
     def test_run(self):
-        with self.assertRaises(Exception) as excep:
+        with self.assertLogs(MDAOfabric.log, 'WARNING') as msg:
             self.solver.Run()
-        self.assertEqual(str(excep.exception), 'Run() of the EmptySolver called.')
+            self.assertEqual('WARNING:MDAOlogger:Run() of the EmptySolver called.', msg.output[0])
 
     def test_finalize(self):
-        with self.assertRaises(Exception) as excep:
+        with self.assertLogs(MDAOfabric.log, 'WARNING') as msg:
             self.solver.Finalize()
-        self.assertEqual(str(excep.exception), 'Finalize() of the EmptySolver called.')
+            self.assertEqual('WARNING:MDAOlogger:Finalize() of the EmptySolver called.', msg.output[0])

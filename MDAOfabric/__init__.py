@@ -1,5 +1,5 @@
 # auxiliary
-from MDAOfabric.settings import Settings
+from MDAOfabric.accessories import *
 
 # solvers
 from MDAOfabric.solvers import *
