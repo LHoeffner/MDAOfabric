@@ -4,13 +4,14 @@ import json
 class Settings(dict):
     """MDAOfabric's container for configuration and settings
 
-    Can be initialised from a dictionary a string or file containing a json-style option set.
+    Can be initialised from a dictionary (less efficient with large depth) a string or file containing a json-style option set.
     It inherits from dictionary and can be read and sliced as such (using settings['key']).
     """
 # functions for instantiation
-    def __init__(self, settings_dict):
+    def __init__(self, settings_dict, check_subdicts=True):
         super(Settings, self).__init__(settings_dict)
-        self.CreateTreeOfSettings()
+        if check_subdicts:
+            self.CreateTreeOfSettings()
 
     @classmethod
     def FromString(cls, settings_string):
@@ -19,7 +20,7 @@ class Settings(dict):
         :param settings_string: string in json formatting containing the settings to read
         :return: None
         """
-        return cls(json.loads(settings_string))
+        return cls(json.loads(settings_string, object_pairs_hook=Settings), check_subdicts=False)
 
     @classmethod
     def FromFile(cls, path):
@@ -40,9 +41,8 @@ class Settings(dict):
         """
         for key in self:
             value = self[key]
-            if isinstance(value, dict) and value:
+            if isinstance(value, dict) and not isinstance(value, Settings) and value:
                 self[key] = Settings(value)
-
 
 # public functions
     def ValidateAndAssignDefaults(self, defaults, branch_key = None, recursive = True):
@@ -74,7 +74,8 @@ class Settings(dict):
                            '" while the defaults use "' + str(type(defaults[key]).__name__) + '")'
                 raise Exception(err_msg)
 
-            if recursive and isinstance(val, Settings):
+            # recursively continue for lower level options if option is set and non-empty subbranch is found
+            if recursive and isinstance(val, Settings) and defaults[key]:
                 val.ValidateAndAssignDefaults(defaults[key], key, True)
 
         # loop the defaults and add the missing entries

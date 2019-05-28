@@ -41,8 +41,8 @@ class SettingsTests(unittest.TestCase):
         self.assertEqual(self.small_reference_dict, settings)
 
     def test_validation(self):
-        settings = MDAOfabric.Settings(self.small_reference_dict)
-        defaults = MDAOfabric.Settings(self.small_reference_dict)
+        settings = MDAOfabric.Settings.FromString(self.small_reference_string)
+        defaults = MDAOfabric.Settings.FromString(self.small_reference_string)
 
         # exception should be raised if same key uses different type
         settings['surface_opt'] = 1
@@ -55,8 +55,8 @@ class SettingsTests(unittest.TestCase):
             settings.ValidateAndAssignDefaults(defaults, 'TestSettingsClass')
 
     def test_default_assign(self):
-        settings = MDAOfabric.Settings(self.small_reference_dict)
-        defaults = MDAOfabric.Settings(self.small_reference_dict)
+        settings = MDAOfabric.Settings.FromString(self.small_reference_string)
+        defaults = MDAOfabric.Settings.FromString(self.small_reference_string)
         del settings['surface_opt']
         settings.ValidateAndAssignDefaults(defaults, 'TestSettingsClass')
         self.assertEqual(self.small_reference_dict, settings)
