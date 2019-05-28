@@ -14,13 +14,14 @@ class GenericIteratingBundleSolver(IteratingBundleSolverBase):
             if 'name' not in piece_settings:
                 piece_settings['name'] = piece_name
 
-            piece = MDAOfabric.factory.GetPiece(piece_settings['type'])
+            piece = MDAOfabric.factory.GetPiece(piece_settings['type'], piece_settings)
             self.stack.append(piece)
 
     def GetDefaultSettings(self):
-        defaults = MDAOfabric.Settings('''{
-            "name"          : "GenericIteratingBundleSolver",
+        defaults = MDAOfabric.Settings.FromString('''{
+            "type"          : "GenericIteratingBundleSolver",
+            "name"          : "GenericIteratingBundleSolver_unnamed",
             "no_iterations" : 5
         }''')
-        defaults['stack'] = MDAOfabric.Settings('')
+        defaults['stack'] = MDAOfabric.Settings.FromString('{}')
         return defaults

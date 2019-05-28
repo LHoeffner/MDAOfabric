@@ -7,9 +7,14 @@ class EmptySolver(SolverBase):
 
     Raises exceptions when one of the methods is called, except for GetDefaultSettings()
     """
+    def __init__(self, settings):
+        super(EmptySolver, self).__init__(settings)
+        MDAOfabric.log.warning('The EmptySolver got initialized.')
 
     def GetDefaultSettings(self):
         default_settings = ('''{
+                    "type"              : "EmptySolver",
+                    "name"              : "EmptySolver_unnamed",
                     "surface_opt"       : "empty_sth",
                     "example_block"     : {
                         "comment"       : "empty comment here",

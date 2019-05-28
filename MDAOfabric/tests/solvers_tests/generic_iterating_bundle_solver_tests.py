@@ -10,7 +10,7 @@ class GenericIteratingBundleSolverTests(unittest.TestCase):
                     "no_iterations" : 7,
                     "stack"         : { 
                         "first empty solver":   { 
-                            "type"              : "empty_solver",
+                            "type"              : "EmptySolver",
                             "surface_opt"       : "something",
                             "example_block"     : {
                                 "comment"       : "some comment here",
