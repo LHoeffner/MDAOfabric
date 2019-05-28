@@ -18,7 +18,7 @@ class EmptySolver(SolverBase):
                     "surface_opt"       : "empty_sth",
                     "example_block"     : {
                         "comment"       : "empty comment here",
-                        "solver_type"   : "empty_sub_solver",
+                        "another_opt"   : "thing",
                         "start_time"    : 0.0
                     }
                 }''')

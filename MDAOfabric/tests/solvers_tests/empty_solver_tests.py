@@ -10,7 +10,7 @@ class EmptySolverTests(unittest.TestCase):
                     "surface_opt"       : "something",
                     "example_block"       : {
                         "comment"       : "some comment here",
-                        "solver_type"   : "some_solver",
+                        "another_opt"   : "thing",
                         "start_time"    : 0.0
                     }
                 }'''
