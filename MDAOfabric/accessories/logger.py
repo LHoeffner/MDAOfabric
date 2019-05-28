@@ -17,4 +17,7 @@ class Logger(logging.Logger):
         self.console_handle.setFormatter(self.formatter)
         self.addHandler(self.console_handle)
 
+    def SetConsoleLevel(self, level):
+        self.console_handle.setLevel(level)
+
 log = Logger()
