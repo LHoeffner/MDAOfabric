@@ -14,11 +14,7 @@ class EmptySolver(SolverBase):
                     "example_block"     : {
                         "comment"       : "empty comment here",
                         "solver_type"   : "empty_sub_solver",
-                        "start_time"    : 0.0,
-                        "deeper_level"  : {
-                            "some_lowerlevel_key"   : 43,
-                            "comment"               : "also in empty lower level"
-                        }
+                        "start_time"    : 0.0
                     }
                 }''')
         return MDAOfabric.Settings.FromString(default_settings)

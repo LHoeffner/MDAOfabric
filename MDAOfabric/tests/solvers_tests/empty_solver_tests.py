@@ -1,5 +1,4 @@
 import unittest
-import logging
 
 import MDAOfabric
 
@@ -12,11 +11,7 @@ class EmptySolverTests(unittest.TestCase):
                     "example_block"       : {
                         "comment"       : "some comment here",
                         "solver_type"   : "some_solver",
-                        "start_time"    : 0.0,
-                        "deeper_level"  : {
-                            "some_lowerlevel_key"   : 43,
-                            "comment"               : "also on lower level"
-                        }
+                        "start_time"    : 0.0
                     }
                 }'''
         self.settings = MDAOfabric.Settings.FromString(self.settings_string)
@@ -28,7 +23,6 @@ class EmptySolverTests(unittest.TestCase):
             self.assertEqual('WARNING:MDAOlogger:Initialize() of the EmptySolver called.', msg.output[0])
             self.assertEqual('WARNING:MDAOlogger:Run() of the EmptySolver called.', msg.output[1])
             self.assertEqual('WARNING:MDAOlogger:Finalize() of the EmptySolver called.', msg.output[2])
-
 
     def test_initialize(self):
         with self.assertLogs(MDAOfabric.log, 'WARNING') as msg:
