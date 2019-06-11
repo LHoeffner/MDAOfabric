@@ -1,7 +1,7 @@
-from settings_tests import *
-from solvers_tests import *
+import unittest
 
 import MDAOfabric
+from MDAOfabric.tests import *
 
 # set how much is output ('ERROR' will only print logs of error level and above)
 MDAOfabric.log.SetConsoleLevel('ERROR')
