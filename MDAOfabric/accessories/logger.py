@@ -18,6 +18,12 @@ class Logger(logging.Logger):
         self.addHandler(self.console_handle)
 
     def SetConsoleLevel(self, level):
+        """Sets the minimum level for a log to be output to the console
+
+        :param level: new minimum level for console output
+        :return: None
+        """
         self.console_handle.setLevel(level)
+
 
 log = Logger()
