@@ -29,6 +29,7 @@ class EmptySolver(SolverBase):
 
     def Run(self):
         MDAOfabric.log.warning('Run() of the EmptySolver called.')
+        MDAOfabric.log.info('dudelido - here, a proper solver would compute something :)')
 
     def Finalize(self):
         MDAOfabric.log.warning('Finalize() of the EmptySolver called.')

@@ -7,7 +7,7 @@ class GenericIteratingBundleSolverTests(unittest.TestCase):
 
     def setUp(self):
         self.settings_string = '''{ 
-                    "no_iterations" : 7,
+                    "no_iterations" : 3,
                     "stack"         : { 
                         "1st empty solver":   { 
                             "type"              : "EmptySolver",
@@ -51,3 +51,20 @@ class GenericIteratingBundleSolverTests(unittest.TestCase):
                                           'WARNING:MDAOlogger:Initialize() of the EmptySolver called.',
                                           'WARNING:MDAOlogger:Initialize() of the EmptySolver called.'])
 
+    def test_run(self):
+        with self.assertLogs(MDAOfabric.log, 'WARNING') as msg:
+            solver = MDAOfabric.GenericIteratingBundleSolver(self.settings)
+            solver.Run()
+            print(msg.output)
+            self.assertEqual(msg.output, ['WARNING:MDAOlogger:The EmptySolver got initialized.',
+                                          'WARNING:MDAOlogger:The EmptySolver got initialized.',
+                                          'WARNING:MDAOlogger:The EmptySolver got initialized.',
+                                          'WARNING:MDAOlogger:Run() of the EmptySolver called.',
+                                          'WARNING:MDAOlogger:Run() of the EmptySolver called.',
+                                          'WARNING:MDAOlogger:Run() of the EmptySolver called.',
+                                          'WARNING:MDAOlogger:Run() of the EmptySolver called.',
+                                          'WARNING:MDAOlogger:Run() of the EmptySolver called.',
+                                          'WARNING:MDAOlogger:Run() of the EmptySolver called.',
+                                          'WARNING:MDAOlogger:Run() of the EmptySolver called.',
+                                          'WARNING:MDAOlogger:Run() of the EmptySolver called.',
+                                          'WARNING:MDAOlogger:Run() of the EmptySolver called.'])
