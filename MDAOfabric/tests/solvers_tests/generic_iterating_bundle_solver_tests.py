@@ -55,7 +55,6 @@ class GenericIteratingBundleSolverTests(unittest.TestCase):
         with self.assertLogs(MDAOfabric.log, 'WARNING') as msg:
             solver = MDAOfabric.GenericIteratingBundleSolver(self.settings)
             solver.Run()
-            print(msg.output)
             self.assertEqual(msg.output, ['WARNING:MDAOlogger:The EmptySolver got initialized.',
                                           'WARNING:MDAOlogger:The EmptySolver got initialized.',
                                           'WARNING:MDAOlogger:The EmptySolver got initialized.',

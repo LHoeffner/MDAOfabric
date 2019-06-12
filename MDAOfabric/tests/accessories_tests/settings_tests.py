@@ -49,15 +49,27 @@ class SettingsTests(unittest.TestCase):
         with self.assertRaises(Exception):
             settings.ValidateAndAssignDefaults(defaults, 'TestSettingsClass')
 
-        # exception should be raised if key missing in defaults
+        # exception should be raised if key missing in the defaults
         del defaults['surface_opt']
+        with self.assertRaises(Exception):
+            settings.ValidateAndAssignDefaults(defaults, 'TestSettingsClass')
+
+        # also in case the key is missing in a subtree of the defaults
+        del defaults['example_block']['deeper_level']['some_lowerlevel_key']
         with self.assertRaises(Exception):
             settings.ValidateAndAssignDefaults(defaults, 'TestSettingsClass')
 
     def test_default_assign(self):
         settings = MDAOfabric.Settings.FromString(self.small_reference_string)
         defaults = MDAOfabric.Settings.FromString(self.small_reference_string)
+
+        # deleted setting should be restored from defaults
         del settings['surface_opt']
+        settings.ValidateAndAssignDefaults(defaults, 'TestSettingsClass')
+        self.assertEqual(self.small_reference_dict, settings)
+
+        # also in a subtree
+        del settings['example_block']['deeper_level']['some_lowerlevel_key']
         settings.ValidateAndAssignDefaults(defaults, 'TestSettingsClass')
         self.assertEqual(self.small_reference_dict, settings)
 
