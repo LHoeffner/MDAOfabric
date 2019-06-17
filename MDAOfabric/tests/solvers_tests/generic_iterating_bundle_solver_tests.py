@@ -67,3 +67,7 @@ class GenericIteratingBundleSolverTests(unittest.TestCase):
                                           'WARNING:MDAOlogger:Run() of the EmptySolver called.',
                                           'WARNING:MDAOlogger:Run() of the EmptySolver called.',
                                           'WARNING:MDAOlogger:Run() of the EmptySolver called.'])
+
+
+if __name__ == '__main__':
+    unittest.main()

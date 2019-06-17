@@ -1,9 +1,12 @@
 import unittest
+import os
 import MDAOfabric
+
+# makes file import independent from exec directory
+small_settings_path = os.path.join(os.path.dirname(__file__), '../test_files/smallest.json')
 
 
 class SettingsTests(unittest.TestCase):
-
     def setUp(self):
         self.small_reference_dict = {'surface_opt': 'something',
                                      'example_block': {'comment': 'some comment here',
@@ -37,7 +40,7 @@ class SettingsTests(unittest.TestCase):
         self.assertIsInstance(settings['example_block'], MDAOfabric.Settings)
 
     def test_file_init(self):
-        settings = MDAOfabric.Settings.FromFile('test_files/smallest.json')
+        settings = MDAOfabric.Settings.FromFile(small_settings_path)
         self.assertEqual(self.small_reference_dict, settings)
 
     def test_validation(self):

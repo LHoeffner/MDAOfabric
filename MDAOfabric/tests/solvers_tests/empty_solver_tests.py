@@ -38,3 +38,7 @@ class EmptySolverTests(unittest.TestCase):
         with self.assertLogs(MDAOfabric.log, 'WARNING') as msg:
             self.solver.Finalize()
             self.assertEqual('WARNING:MDAOlogger:Finalize() of the EmptySolver called.', msg.output[0])
+
+
+if __name__ == '__main__':
+    unittest.main()
