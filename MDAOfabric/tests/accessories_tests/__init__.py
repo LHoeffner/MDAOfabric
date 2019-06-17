@@ -1,1 +1,2 @@
 from .settings_tests import SettingsTests
+from .mpi_communicator_tests import MPICommunicatorTests
