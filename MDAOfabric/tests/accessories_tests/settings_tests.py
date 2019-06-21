@@ -76,6 +76,24 @@ class SettingsTests(unittest.TestCase):
         settings.ValidateAndAssignDefaults(defaults, 'TestSettingsClass')
         self.assertEqual(self.small_reference_dict, settings)
 
+    def test_mandatory_settings(self):
+        settings = MDAOfabric.Settings.FromString(self.small_reference_string)
+        defaults = MDAOfabric.Settings.FromString(self.small_reference_string)
+
+        # should raise error if mandatory setting is missing
+        defaults['something_needed'] = '<mandatory_int>'
+        with self.assertRaises(Exception):
+            settings.ValidateAndAssignDefaults(defaults, 'TestSettingsClass')
+
+        # also if the settings has the wrong type
+        settings['something_needed'] = 'still no integer'
+        with self.assertRaises(Exception):
+            settings.ValidateAndAssignDefaults(defaults, 'TestSettingsClass')
+
+        # but not if the setting is set correctly
+        settings['something_needed'] = 3
+        settings.ValidateAndAssignDefaults(defaults, 'TestSettingsClass')
+
 
 if __name__ == '__main__':
     unittest.main()

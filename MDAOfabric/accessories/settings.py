@@ -64,8 +64,20 @@ class Settings(dict):
                 err_msg += ' (NOT in the defaults)'
                 raise Exception(err_msg)
 
-            # check if the type is the same in the defaults
-            if not isinstance(val, type(defaults[key])):
+            # check if the type is the same in the defaults (for mandatory settings)
+            if isinstance(defaults[key], str) and '<mandatory_' in defaults[key]:
+                default_type = defaults[key].split('_')[1].split('>')[0]
+                if str(type(val).__name__) != default_type:
+                    err_msg = 'Unexpected type used by key "' + key + '" in the settings!'
+                    # adds name of invoking class to output if provided
+                    if branch_key:
+                        err_msg += ' (in settings branch "' + branch_key + '")'
+                    err_msg += ' (it is "' + str(type(val).__name__) + \
+                               '" while the defaults use "' + default_type + '")'
+                    raise Exception(err_msg)
+
+            # check if the type is the same in the defaults (for optional settings)
+            elif not isinstance(val, type(defaults[key])):
                 err_msg = 'Unexpected type used by key "' + key + '" in the settings!'
                 # adds name of invoking class to output if provided
                 if branch_key:
@@ -81,6 +93,15 @@ class Settings(dict):
         # loop the defaults and add the missing entries
         for key_d, val_d in defaults.items():
             if key_d not in self:
-                self[key_d] = val_d
+                # raise Error if mandatory setting is missing
+                if isinstance(val_d, str) and '<mandatory_' in val_d:
+                    err_msg = 'Missing mandatory key "' + key_d + '" in the settings!'
+                    # adds name of invoking class to output if provided
+                    if branch_key:
+                        err_msg += ' (in settings branch "' + branch_key + '")'
+                    raise Exception(err_msg)
+                # set default if optional
+                else:
+                    self[key_d] = val_d
 
 
